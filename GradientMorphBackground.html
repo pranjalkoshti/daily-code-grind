@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gradient Morph Background</title>
+<style>
+  :root{--h: 220}
+  html,body{height:100%;margin:0}
+  body{
+    display:grid;
+    place-items:center;
+    font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;
+    background:#0b0f14;
+    color:white;
+  }
+
+  /* full-bleed animated gradient */
+  .morph-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background: linear-gradient(120deg, hsl(200 80% 50%) 0%, hsl(260 80% 50%) 25%, hsl(320 80% 50%) 50%, hsl(280 80% 60%) 75%, hsl(210 80% 55%) 100%);
+    background-size: 300% 300%;
+    filter: blur(36px) saturate(120%);
+    animation: gradientShift 12s ease-in-out infinite;
+    transform: translateZ(0); /* promote to its own layer */
+  }
+
+  @keyframes gradientShift{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  /* accessibility: respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .morph-bg{ animation: none; filter: blur(34px) }
+  }
+
+  .card{
+    padding:2rem 2.5rem;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:16px;
+    backdrop-filter: blur(6px);
+    box-shadow:0 8px 30px rgba(2,6,23,0.6);
+  }
+</style>
+</head>
+<body>
+  <div class="morph-bg" aria-hidden="true"></div>
+  <div class="card">
+    <h1>Gradient morph background</h1>
+    <p>GPU-friendly animated gradient with blur &amp; saturation for richness.</p>
+  </div>
+</body>
+</html>
